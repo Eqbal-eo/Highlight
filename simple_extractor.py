@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-نسخة مبسطة لاستخراج النصوص المحددة باللون الأصفر من PDF
 Simple PDF Highlight Extractor
 """
 
@@ -13,93 +12,128 @@ from datetime import datetime
 
 def extract_yellow_highlights(pdf_path, output_path=None):
     """
-    استخراج النصوص المحددة باللون الأصفر من ملف PDF
+    Extract yellow highlighted text from PDF file
     
     Args:
-        pdf_path (str): مسار ملف PDF
-        output_path (str): مسار ملف الإخراج (اختياري)
+        pdf_path (str): PDF file path
+        output_path (str): Output file path (optional)
     
     Returns:
-        list: قائمة بالنصوص المستخرجة
+        list: List of extracted texts
     """
     
     if not os.path.exists(pdf_path):
-        print(f"خطأ: الملف غير موجود: {pdf_path}")
+        print(f"Error: File not found: {pdf_path}")
         return []
     
     try:
-        # فتح ملف PDF
+        # Open PDF file
         doc = fitz.open(pdf_path)
         extracted_highlights = []
         
-        print(f"جاري معالجة ملف: {os.path.basename(pdf_path)}")
-        print(f"عدد الصفحات: {len(doc)}")
+        print(f"Processing file: {os.path.basename(pdf_path)}")
+        print(f"Number of pages: {len(doc)}")
         
-        # البحث في كل صفحة
+        # Search through all pages
         for page_num in range(len(doc)):
             page = doc[page_num]
-            print(f"معالجة الصفحة {page_num + 1}...")
+            print(f"Processing page {page_num + 1}...")
             
-            # البحث عن التحديدات (annotations)
+            # Search for annotations
             annotations = page.annots()
+            page_highlights = 0
             
             for annot in annotations:
-                # التحقق من نوع التحديد
-                if annot.type[1] == 'Highlight':
-                    # الحصول على النص المحدد
+                annot_type = annot.type[1] if len(annot.type) > 1 else annot.type[0]
+                print(f"  Annotation type: {annot_type}")
+                
+                # Check for different highlight types
+                if annot_type in ['Highlight', 'Squiggly', 'Underline', 'StrikeOut', 'Square', 'FreeText']:
+                    # Get highlighted text
                     highlighted_text = get_highlighted_text(page, annot)
                     
                     if highlighted_text and highlighted_text.strip():
-                        # الحصول على لون التحديد
+                        # Get highlight color
                         color = get_annot_color(annot)
+                        print(f"    Highlight color: {color}")
                         
-                        # التحقق من اللون الأصفر
+                        # Check color (accepting most colors now)
                         if is_yellow_highlight(color):
                             highlight_info = {
                                 'page': page_num + 1,
                                 'text': highlighted_text.strip(),
-                                'color': color
+                                'color': color,
+                                'type': annot_type
                             }
                             extracted_highlights.append(highlight_info)
-                            print(f"  تم العثور على نص محدد في الصفحة {page_num + 1}")
+                            page_highlights += 1
+                            print(f"    ✓ Extracted text: {highlighted_text[:50]}...")
+                        else:
+                            print(f"    ✗ Color mismatch")
+                    else:
+                        print(f"    ✗ No text found")
+                else:
+                    print(f"    ✗ Unsupported annotation type")
+            
+            print(f"  Found {page_highlights} highlighted text(s) on page {page_num + 1}")
+            
+            # Additional: Search for highlights using other methods
+            # Search for hidden or embedded highlights
+            try:
+                # Alternative method: Search page content for special formatting
+                page_dict = page.get_text("dict")
+                for block in page_dict.get("blocks", []):
+                    if "lines" in block:
+                        for line in block["lines"]:
+                            for span in line["spans"]:
+                                # Check formatting properties
+                                if span.get("flags", 0) & 2**4:  # Bold
+                                    # Might be highlighted text
+                                    pass
+            except:
+                pass
+            
+            # Search using alternative methods
+            alternative_highlights = find_highlights_alternative(page, page_num)
+            extracted_highlights.extend(alternative_highlights)
         
         doc.close()
         
-        # طباعة النتائج
-        print(f"\nتم الانتهاء! تم العثور على {len(extracted_highlights)} نص محدد باللون الأصفر")
+        # Print results
+        print(f"\nFinished! Found {len(extracted_highlights)} highlighted text(s)")
         
-        # حفظ النتائج إذا تم تحديد مسار الإخراج
+        # Save results if output path specified
         if output_path and extracted_highlights:
             save_to_file(extracted_highlights, pdf_path, output_path)
         
-        # طباعة النصوص المستخرجة
+        # Print extracted texts
         if extracted_highlights:
             print("\n" + "=" * 60)
-            print("النصوص المستخرجة:")
+            print("Extracted Texts:")
             print("=" * 60)
             
             for i, highlight in enumerate(extracted_highlights, 1):
-                print(f"\n[{i}] صفحة {highlight['page']}:")
+                print(f"\n[{i}] Page {highlight['page']}:")
                 print("-" * 40)
                 print(highlight['text'])
                 print("-" * 40)
         else:
-            print("لم يتم العثور على نصوص محددة باللون الأصفر في هذا الملف.")
+            print("No highlighted text found in this file.")
         
         return extracted_highlights
         
     except Exception as e:
-        print(f"خطأ أثناء معالجة الملف: {str(e)}")
+        print(f"Error processing file: {str(e)}")
         return []
 
 
 def get_highlighted_text(page, annot):
-    """استخراج النص المحدد من التعليق التوضيحي"""
+    """Extract highlighted text from annotation"""
     try:
-        # الحصول على مستطيل التحديد
+        # Get highlight rectangle
         rect = annot.rect
         
-        # استخراج النص من المنطقة المحددة
+        # Method 1: Extract text from highlighted area
         text_instances = page.get_text("dict")
         highlighted_text = ""
         
@@ -108,79 +142,160 @@ def get_highlighted_text(page, annot):
                 for line in block["lines"]:
                     for span in line["spans"]:
                         span_rect = fitz.Rect(span["bbox"])
-                        # التحقق من تداخل النص مع منطقة التحديد
+                        # Check if text intersects with highlight area
                         if span_rect.intersects(rect):
-                            highlighted_text += span["text"]
+                            highlighted_text += span["text"] + " "
         
-        # إذا لم نجد نص بالطريقة السابقة، نجرب طريقة أخرى
+        # Method 2: If no text found with previous method
         if not highlighted_text.strip():
             highlighted_text = page.get_textbox(rect)
         
-        return highlighted_text
+        # Method 3: Extract text with higher precision
+        if not highlighted_text.strip():
+            # Expand area slightly to ensure text capture
+            expanded_rect = fitz.Rect(
+                rect.x0 - 2, rect.y0 - 2, 
+                rect.x1 + 2, rect.y1 + 2
+            )
+            highlighted_text = page.get_textbox(expanded_rect)
+        
+        # Method 4: Extract text using alternative method
+        if not highlighted_text.strip():
+            words = page.get_text("words")
+            for word in words:
+                word_rect = fitz.Rect(word[:4])
+                if word_rect.intersects(rect):
+                    highlighted_text += word[4] + " "
+        
+        return highlighted_text.strip()
         
     except Exception as e:
-        print(f"خطأ في استخراج النص: {e}")
+        print(f"Error extracting text: {e}")
         return ""
 
 
 def get_annot_color(annot):
-    """الحصول على لون التحديد"""
+    """Get highlight color"""
     try:
-        # محاولة الحصول على اللون
+        # Try to get color
         color = annot.colors.get("stroke", None)
         if not color:
             color = annot.colors.get("fill", None)
         
-        return color if color else [1.0, 1.0, 0.0]  # أصفر افتراضي
+        return color if color else [1.0, 1.0, 0.0]  # Default yellow
     except:
-        return [1.0, 1.0, 0.0]  # أصفر افتراضي
+        return [1.0, 1.0, 0.0]  # Default yellow
 
 
 def is_yellow_highlight(color):
-    """التحقق من كون اللون أصفر"""
-    if not color or len(color) < 3:
-        return True  # افتراضياً نعتبره أصفر
+    """Check if color is yellow"""
+    if not color:
+        return True  # Consider yellow by default if no color specified
     
-    # التحقق من القيم RGB للون الأصفر
-    # اللون الأصفر عادة ما يكون (1.0, 1.0, 0.0) أو قريب منه
-    r, g, b = color[0], color[1], color[2]
+    # If color is a single number (grayscale)
+    if isinstance(color, (int, float)):
+        return True  # Accept all colors in grayscale case
     
-    # نتحقق من أن الأحمر والأخضر مرتفعان والأزرق منخفض
-    return r > 0.7 and g > 0.7 and b < 0.3
+    # If color is a list
+    if isinstance(color, (list, tuple)) and len(color) >= 3:
+        r, g, b = color[0], color[1], color[2]
+        
+        # Classic yellow
+        if r > 0.7 and g > 0.7 and b < 0.3:
+            return True
+        
+        # Light yellow
+        if r > 0.8 and g > 0.8 and b < 0.5:
+            return True
+        
+        # Orange-ish yellow
+        if r > 0.9 and g > 0.7 and b < 0.4:
+            return True
+        
+        # Any light color could be a highlight
+        brightness = (r + g + b) / 3
+        if brightness > 0.6:
+            return True
+    
+    # When in doubt, accept the highlight
+    return True
 
 
 def save_to_file(highlights, pdf_path, output_path):
-    """حفظ النصوص المستخرجة في ملف"""
+    """Save extracted texts to file"""
     try:
         with open(output_path, 'w', encoding='utf-8') as f:
-            f.write("النصوص المحددة باللون الأصفر من PDF\n")
+            f.write("Highlighted Text from PDF\n")
             f.write("=" * 60 + "\n")
-            f.write(f"الملف المصدر: {os.path.basename(pdf_path)}\n")
-            f.write(f"تاريخ الاستخراج: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
-            f.write(f"عدد النصوص المستخرجة: {len(highlights)}\n")
+            f.write(f"Source file: {os.path.basename(pdf_path)}\n")
+            f.write(f"Extraction date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+            f.write(f"Number of extracted texts: {len(highlights)}\n")
             f.write("=" * 60 + "\n\n")
             
             for i, highlight in enumerate(highlights, 1):
-                f.write(f"[{i}] صفحة {highlight['page']}:\n")
+                f.write(f"[{i}] Page {highlight['page']}:\n")
                 f.write("-" * 40 + "\n")
                 f.write(f"{highlight['text']}\n")
                 f.write("-" * 40 + "\n\n")
         
-        print(f"\nتم حفظ النتائج في: {output_path}")
+        print(f"\nResults saved to: {output_path}")
         
     except Exception as e:
-        print(f"خطأ في حفظ الملف: {str(e)}")
+        print(f"Error saving file: {str(e)}")
+
+
+def find_highlights_alternative(page, page_num):
+    """Search for highlights using alternative methods"""
+    highlights = []
+    
+    try:
+        # Method 1: Search in content streams
+        text_instances = page.get_text("dict")
+        
+        # Method 2: Search for colored rectangles
+        drawings = page.get_drawings()
+        for drawing in drawings:
+            if 'fill' in drawing and drawing['fill']:
+                # Check color
+                fill_color = drawing.get('fill')
+                if fill_color and len(fill_color) >= 3:
+                    r, g, b = fill_color[0], fill_color[1], fill_color[2]
+                    # If color is yellow or light
+                    if (r > 0.7 and g > 0.7 and b < 0.5) or (r + g + b) / 3 > 0.6:
+                        # Extract text from this area
+                        rect = drawing.get('rect')
+                        if rect:
+                            text = page.get_textbox(rect)
+                            if text and text.strip():
+                                highlights.append({
+                                    'page': page_num + 1,
+                                    'text': text.strip(),
+                                    'color': fill_color,
+                                    'type': 'Drawing'
+                                })
+        
+        # Method 3: Search for text with colored background
+        words = page.get_text("words")
+        for word in words:
+            # Check for colored background in word
+            word_rect = fitz.Rect(word[:4])
+            # Can be developed further based on PDF type
+        
+    except Exception as e:
+        print(f"Error in alternative search: {e}")
+    
+    return highlights
 
 
 def main():
-    """الدالة الرئيسية"""
-    print("مستخرج النصوص المحددة باللون الأصفر من PDF")
+    """Main function"""
+    print("PDF Yellow Highlight Text Extractor")
     print("=" * 50)
     
     if len(sys.argv) < 2:
-        print("الاستخدام:")
-        print(f"python {sys.argv[0]} <مسار_ملف_PDF> [مسار_ملف_الإخراج]")
-        print("\nمثال:")
+        print("Usage:")
+        print(f"python {sys.argv[0]} <PDF_file_path> [output_file_path]")
+        print("\nExample:")
         print(f"python {sys.argv[0]} document.pdf")
         print(f"python {sys.argv[0]} document.pdf output.txt")
         return
@@ -188,13 +303,13 @@ def main():
     pdf_path = sys.argv[1]
     output_path = sys.argv[2] if len(sys.argv) > 2 else None
     
-    # تشغيل الاستخراج
+    # Run extraction
     highlights = extract_yellow_highlights(pdf_path, output_path)
     
     if highlights:
-        print(f"\nتم الانتهاء بنجاح! تم استخراج {len(highlights)} نص محدد.")
+        print(f"\nCompleted successfully! Extracted {len(highlights)} highlighted text(s).")
     else:
-        print("\nلم يتم العثور على نصوص محددة أو حدث خطأ.")
+        print("\nNo highlighted text found or an error occurred.")
 
 
 if __name__ == "__main__":

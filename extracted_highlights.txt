@@ -1,0 +1,307 @@
+Highlighted Text from PDF - Enhanced Version
+============================================================
+Source file: 3) Parkinson's Disease.pdf
+Extraction date: 2025-06-25 20:17:28
+Number of extracted texts: 55
+============================================================
+
+[1] Page 1 - Method: Drawing
+--------------------------------------------------
+Dopamine Replacement the
+Levodopa – Glod Standard
+Color: (1.0, 1.0, 0.0)
+--------------------------------------------------
+
+[2] Page 1 - Method: Drawing
+--------------------------------------------------
+Levodopa – Glod Standard 
+Levodopa converted to dopamine in dopaminergic terminals by dopa-decarboxylase
+Color: (1.0, 1.0, 0.0)
+--------------------------------------------------
+
+[3] Page 1 - Method: Drawing
+--------------------------------------------------
+Levodopa converted to dopamine in dopaminerg
+Directly dopaminergic effect (especially D2 rec.)
+Color: (1.0, 1.0, 0.0)
+--------------------------------------------------
+
+[4] Page 1 - Method: Drawing
+--------------------------------------------------
+Directly dopaminergic effect (especially D2 rec.) 
+Combine with Carbidopa which is a dopamine decarboxylase inhibitör that prevents the
+Color: (1.0, 1.0, 0.0)
+--------------------------------------------------
+
+[5] Page 1 - Method: Drawing
+--------------------------------------------------
+Combine with Carbidopa which is a dopamine decarboxylase inhibitör that p
+conversion before Levodopa cross the BBB, note: Carbidopa cant cross BBB
+Color: (1.0, 1.0, 0.0)
+--------------------------------------------------
+
+[6] Page 1 - Method: Drawing
+--------------------------------------------------
+conversion before Levodopa cross the BBB, note: Ca
+This combination causes: Side effects ↓, efficacy ↑
+Color: (1.0, 1.0, 0.0)
+--------------------------------------------------
+
+[7] Page 1 - Method: Drawing
+--------------------------------------------------
+ContraindicaRons:
+Color: (1.0, 1.0, 0.0)
+--------------------------------------------------
+
+[8] Page 1 - Method: Drawing
+--------------------------------------------------
+1) Malign melanOma: levOdOpa is a precursor of melanin
+Color: (1.0, 1.0, 0.0)
+--------------------------------------------------
+
+[9] Page 1 - Method: Drawing
+--------------------------------------------------
+1) Malign melanOma: levOdOpa is a precursor of melanin 
+2) NarrOw-angle glaucOma: levOdOpa with caution as it can increase ocular pressure
+Color: (1.0, 1.0, 0.0)
+--------------------------------------------------
+
+[10] Page 1 - Method: Drawing
+--------------------------------------------------
+mine Agonists 
+ Pramipexole,
+Color: (1.0, 1.0, 0.0)
+--------------------------------------------------
+
+[11] Page 1 - Method: ColoredText
+--------------------------------------------------
+Parkinson’s disease
+Color: 16711680
+--------------------------------------------------
+
+[12] Page 1 - Method: ColoredText
+--------------------------------------------------
+2 Types of symptoms:
+--------------------------------------------------
+
+[13] Page 1 - Method: ColoredText
+--------------------------------------------------
+Motor symptoms: almost all due to loss of dopamine neurons in the midbrain
+--------------------------------------------------
+
+[14] Page 1 - Method: ColoredText
+--------------------------------------------------
+Non-motor symptoms: almost all due to nervous dysfunction not related to dopamine
+--------------------------------------------------
+
+[15] Page 1 - Method: ColoredText
+--------------------------------------------------
+neurons. Exmples are: Cognitive impairment,
+--------------------------------------------------
+
+[16] Page 1 - Method: ColoredText
+--------------------------------------------------
+Acetylcholine and Dopamine is impaires (Dopamine
+--------------------------------------------------
+
+[17] Page 1 - Method: ColoredText
+--------------------------------------------------
+decrease so Acetylcholine become overactive)
+--------------------------------------------------
+
+[18] Page 1 - Method: ColoredText
+--------------------------------------------------
+Dopamine Replacement therapy
+--------------------------------------------------
+
+[19] Page 1 - Method: ColoredText
+--------------------------------------------------
+Levodopa
+--------------------------------------------------
+
+[20] Page 1 - Method: ColoredText
+--------------------------------------------------
+Glod Standard
+--------------------------------------------------
+
+[21] Page 1 - Method: ColoredText
+--------------------------------------------------
+Levodopa converted to dopamine in dopaminergic terminals by dopa-decarboxylase
+--------------------------------------------------
+
+[22] Page 1 - Method: ColoredText
+--------------------------------------------------
+Directly dopaminergic effect (especially D2 rec.)
+--------------------------------------------------
+
+[23] Page 1 - Method: ColoredText
+--------------------------------------------------
+conversion before Levodopa cross the BBB, note: Carbidopa cant cross BBB
+--------------------------------------------------
+
+[24] Page 1 - Method: ColoredText
+--------------------------------------------------
+This combination
+--------------------------------------------------
+
+[25] Page 1 - Method: ColoredText
+--------------------------------------------------
+Long-Term Complications:
+--------------------------------------------------
+
+[26] Page 1 - Method: ColoredText
+--------------------------------------------------
+Wearing-off -> Shortened duraNon of action
+Color: 16711680
+--------------------------------------------------
+
+[27] Page 1 - Method: ColoredText
+--------------------------------------------------
+On-Off FluctuaRons -> Sudden shins between feeling good and bad (the symptoms)
+Color: 16711680
+--------------------------------------------------
+
+[28] Page 1 - Method: ColoredText
+--------------------------------------------------
+Levodopa-Induced Dyskinesia (LID) -> Involuntary, excessive movement
+Color: 16711680
+--------------------------------------------------
+
+[29] Page 1 - Method: ColoredText
+--------------------------------------------------
+Better to be taken on an empty stomach thus can reach the brain in 30 min. Can also be
+Color: 16711680
+--------------------------------------------------
+
+[30] Page 1 - Method: ColoredText
+--------------------------------------------------
+given inhaled for longer effect.
+Color: 16711680
+--------------------------------------------------
+
+[31] Page 1 - Method: ColoredText
+--------------------------------------------------
+Adverse Effects:
+--------------------------------------------------
+
+[32] Page 1 - Method: ColoredText
+--------------------------------------------------
+Nausea, Vomiting, and hemolytic anemia (Autoimmune hemolytic anemia)
+--------------------------------------------------
+
+[33] Page 1 - Method: ColoredText
+--------------------------------------------------
+Malign melan
+--------------------------------------------------
+
+[34] Page 1 - Method: ColoredText
+--------------------------------------------------
+ma: lev
+--------------------------------------------------
+
+[35] Page 1 - Method: ColoredText
+--------------------------------------------------
+pa is a precursor of melanin
+--------------------------------------------------
+
+[36] Page 1 - Method: ColoredText
+--------------------------------------------------
+w-angle glauc
+--------------------------------------------------
+
+[37] Page 1 - Method: ColoredText
+--------------------------------------------------
+ma: levOdOpa with caution as it can increase ocular pressure
+--------------------------------------------------
+
+[38] Page 1 - Method: ColoredText
+--------------------------------------------------
+Dopamine Agonists
+--------------------------------------------------
+
+[39] Page 1 - Method: ColoredText
+--------------------------------------------------
+Deugs: Pramipexole, Ropinirole, Rotigotine, Apomorphine, Pergolide
+--------------------------------------------------
+
+[40] Page 1 - Method: ColoredText
+--------------------------------------------------
+Used for early symptoms
+--------------------------------------------------
+
+[41] Page 1 - Method: ColoredText
+--------------------------------------------------
+NMDA Antagonist
+--------------------------------------------------
+
+[42] Page 1 - Method: ColoredText
+--------------------------------------------------
+Block NMDA receptors (of Gltamate which is also an excitatory neurotransmitter)
+--------------------------------------------------
+
+[43] Page 1 - Method: ColoredText
+--------------------------------------------------
+Used for:
+--------------------------------------------------
+
+[44] Page 1 - Method: ColoredText
+--------------------------------------------------
+1. Prophylaxis and treatment of Influenza A
+--------------------------------------------------
+
+[45] Page 1 - Method: ColoredText
+--------------------------------------------------
+2. Treatment of dyskinesia in patients with Parkinson's disease
+--------------------------------------------------
+
+[46] Page 2 - Method: ColoredText
+--------------------------------------------------
+Drugs that inhibit the breakdown of Dopamine
+--------------------------------------------------
+
+[47] Page 2 - Method: ColoredText
+--------------------------------------------------
+Work on one of 2 enzymes: MAO-B and COMT -> MAO-A for serotonin and MAO-B for
+--------------------------------------------------
+
+[48] Page 2 - Method: ColoredText
+--------------------------------------------------
+dopamine
+--------------------------------------------------
+
+[49] Page 2 - Method: ColoredText
+--------------------------------------------------
+An example of COMT inhibitors is Entacapone and generally given combined with Levadopa
+--------------------------------------------------
+
+[50] Page 2 - Method: ColoredText
+--------------------------------------------------
+and Carbidopa that has a peripheral action on COMT and Tolcapone with Central and
+--------------------------------------------------
+
+[51] Page 2 - Method: ColoredText
+--------------------------------------------------
+peripheral inhibition of COMT
+--------------------------------------------------
+
+[52] Page 2 - Method: ColoredText
+--------------------------------------------------
+Adenosine 2 antagonist
+--------------------------------------------------
+
+[53] Page 2 - Method: ColoredText
+--------------------------------------------------
+Adenosine generally blocks Dopamine
+--------------------------------------------------
+
+[54] Page 2 - Method: ColoredText
+--------------------------------------------------
+AnRcholinergic agents
+--------------------------------------------------
+
+[55] Page 2 - Method: ColoredText
+--------------------------------------------------
+Side effects: dry mouth, sedaNon, mood changes, mental slowness, blurred vision
+Color: 16711680
+--------------------------------------------------
+
